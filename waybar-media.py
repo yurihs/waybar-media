@@ -170,6 +170,9 @@ class MediaWatcherStatusBuilder:
         tooltip = []
         player = self.watcher.player
 
+        if player == None:
+            return None
+
         if player.status in ['playing', 'paused']:
             tooltip.append(player.status.title() + ':')
         if player.title:
@@ -186,6 +189,9 @@ class MediaWatcherStatusBuilder:
     def _build_text(self, max_width, title_to_artist_ratio=2 / 3, separator=' - ', placeholder='…'):
         max_width = max_width - len(separator)
         player = self.watcher.player
+
+        if player == None:
+            return None
 
         if player.title and player.artist:
             title_width = math.floor(max_width * title_to_artist_ratio)
@@ -216,6 +222,9 @@ class MediaWatcherStatusBuilder:
     def _build_classes(self):
         classes = []
         player = self.watcher.player
+
+        if player == None:
+            return classes
 
         if player.status in ['playing', 'paused']:
             classes.append(player.status)
