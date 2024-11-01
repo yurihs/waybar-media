@@ -266,15 +266,20 @@ def main():
                 except GLib.Error:
                     pass
         elif arg == 'playpause':
-            media_watcher.player.playpause()
+            if media_watcher.player != None:
+                media_watcher.player.playpause()
         elif arg == 'play':
-            media_watcher.player.play()
+            if media_watcher.player != None:
+                media_watcher.player.play()
         elif arg == 'pause':
-            media_watcher.player.pause()
+            if media_watcher.player != None:
+                media_watcher.player.pause()
         elif arg == 'previous':
-            media_watcher.player.previous()
+            if media_watcher.player != None:
+                media_watcher.player.previous()
         elif arg == 'next':
-            media_watcher.player.next()
+            if media_watcher.player != None:
+                media_watcher.player.next()
         else:
             print_usage()
             return
