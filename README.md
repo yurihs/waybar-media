@@ -1,57 +1,64 @@
-# waybar-media
+<h1 align="center">waybar-media</h1>
 
-A module to display currently playing media in your [Waybar](https://github.com/Alexays/Waybar).
+<p align="center">
+A module to display currently playing media in your <a href="https://github.com/Alexays/Waybar">Waybar</a>.
+</p>
 
-Supports fetching data from the following media players:
+<p align="center">
+<img src="https://github.com/user-attachments/assets/7fd2caa3-d566-40eb-b8a1-1f87a24ac795" height="150">
+</p>
 
-* **Firefox, Google Chrome, Chromium** and other browsers  
-  via [KDE Plasma Integration](https://community.kde.org/Plasma/Browser_Integration). You must follow their instructions for installing a browser extension and a native host. KDE Plasma itself is not required.
+---
+
+Shows data from:
+
+* **Firefox, Google Chrome, Chromium** and other browsers
 * **MPV**
-* Potentially, any other player that supports [MPRIS](https://www.freedesktop.org/wiki/Specifications/mpris-spec/). Feel free to open an issue.
+* Potentially, any other player with [MPRIS](https://www.freedesktop.org/wiki/Specifications/mpris-spec/) support. Feel free to open an issue or a pull request!
 
-In the toolbar, the current title and artist are shown separated by a dash, like so: `Mountains - Hans Zimmer`.
-Long titles/artists will be _ellipsized_ to 80 characters.
+The current title and artist are shown in the toolbar. Long titles/artists are _ellipsized_ to 80 characters.
 
 The tooltip displays more metadata, including the album and player name.
 
 
-## Dependencies
+## Installation
 
-* [pydbus](https://github.com/LEW21/pydbus) and its dependencies
-* [psutil](https://psutil.readthedocs.io/en/latest/)
+For Arch Linux, **use the AUR package**: [waybar-media-git](https://aur.archlinux.org/packages/waybar-media-git)
 
-If you use Arch Linux, you may use the following packages: `python-pydbus python-psutil`
+You'll probably also want to install this, to get data from browsers: `pacman -S plasma-browser-integration`
+
+<br/>
+
+If you can't use the AUR package, follow these steps:
+
+- Install the Python packages listed in `requirements.txt` (they should be available as a package from your distribution)
+- Put `waybar-media.py` somewhere in your $PATH
+- For browser integration, follow instructions from [KDE Plasma Integration](https://community.kde.org/Plasma/Browser_Integration) to install the native host and the browser extension(s). Note: KDE Plasma itself is not required.
 
 
-## Installation and configuration
-
-Put `waybar-media.py` somewhere in your path, e.g. `~/.local/bin/`
+## Configuration
 
 Add to your Waybar configuration as a [custom module](https://github.com/Alexays/Waybar/wiki/Module:-Custom), like so:
 
 ```json
-{
-    "modules-center": ["custom/waybar-media"],
-    "custom/waybar-media": {
-        "return-type": "json",
-        "exec": "waybar-media.py status",
-        "on-click": "waybar-media.py playpause",
-        "on-scroll-up": "waybar-media.py previous",
-        "on-scroll-down": "waybar-media.py next",
-        "escape": true
-    }
+"custom/waybar-media": {
+    "return-type": "json",
+    "exec": "waybar-media.py status",
+    "on-click": "waybar-media.py playpause",
+    "on-scroll-up": "waybar-media.py previous",
+    "on-scroll-down": "waybar-media.py next",
+    "escape": true
 }
 ```
 
-As shown above, `waybar-media.py` always takes one argument. These are the available options:
+`waybar-media.py` always takes one argument. These are the available options:
 
 * `status`: Print the status in [Waybar's JSON format](https://github.com/Alexays/Waybar/wiki/Module:-Custom#module-custom-config-return-type).
 * `playpause`: Toggle the state of the current player.
 * `previous`: Go to the previous song.
 * `next`: Go to the next song.
 
-
-## Styling
+### Styling
 
 You may use the following classes to style the module:
 
@@ -59,10 +66,20 @@ You may use the following classes to style the module:
 * `paused`
 * `stopped`
 
-Here's an example:
+Here's an example to be placed in the `styles.css` file alongside the Waybar configuration. See [Waybar's Styling docs](https://github.com/Alexays/Waybar/wiki/Styling) for more ideas.
 
 ```css
 #custom-waybar-media.paused {
     color: grey;
 }
 ```
+
+## Troubleshooting
+
+#### Waybar logs show `[error] waybar-media stopped unexpectedly, is it endless?`
+
+The script is erroring out. Run `waybar-media.py status` directly in your terminal to see which errors show up.
+
+#### Running the script shows `ModuleNotFoundError: No module named 'pydbus'`
+
+The dependencies have not been installed. Check the installation instructions.
