@@ -8,6 +8,11 @@ A module to display currently playing media in your <a href="https://github.com/
 <img src="https://github.com/user-attachments/assets/7fd2caa3-d566-40eb-b8a1-1f87a24ac795" height="150">
 </p>
 
+> [!NOTE] 
+> You're probably better off using [Waybar's native MPRIS module](https://github.com/Alexays/Waybar/wiki/Module:-MPRIS) rather than this custom one!  
+> It does the same thing, and is way more customizable and robust.
+
+
 ---
 
 Shows data from:
